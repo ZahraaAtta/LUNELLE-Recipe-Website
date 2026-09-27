@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Search, SlidersHorizontal, X } from "lucide-react";
 import { toast } from "sonner";
 import { useSearchParams, useRouter } from "next/navigation";
@@ -17,13 +17,11 @@ import {
 
 import type { Recipe } from "@/app/tpeys/recipe";
 
-export default function RecipesPage() {
+function RecipesContent() {
     const searchParams = useSearchParams();
     const router = useRouter();
 
     const navbarSearch = searchParams.get("search") || "";
-
-    // Page comes from URL
     const page = Number(searchParams.get("page")) || 1;
 
     const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -36,7 +34,6 @@ export default function RecipesPage() {
 
     const totalPages = Math.ceil(total / 10);
 
-    // Load categories
     useEffect(() => {
         getRecipeCategories()
             .then((data) => {
@@ -47,16 +44,13 @@ export default function RecipesPage() {
             });
     }, []);
 
-    // Sync navbar search
     useEffect(() => {
         setSearchInput(navbarSearch);
     }, [navbarSearch]);
 
-    // Load recipes
     useEffect(() => {
         setLoading(true);
 
-        // Category
         if (selectedCategory) {
             getRecipesByCategory({
                 category: selectedCategory,
@@ -77,7 +71,6 @@ export default function RecipesPage() {
             return;
         }
 
-        // Search
         if (navbarSearch) {
             searchRecipes({
                 query: navbarSearch,
@@ -98,7 +91,6 @@ export default function RecipesPage() {
             return;
         }
 
-        // All recipes
         getRecipes({
             limit: 10,
             skip: (page - 1) * 10,
@@ -115,7 +107,6 @@ export default function RecipesPage() {
             });
     }, [navbarSearch, page, selectedCategory]);
 
-    // Search from page
     function handleSearch(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
@@ -132,29 +123,23 @@ export default function RecipesPage() {
         setSelectedCategory("");
     }
 
-    // Category
     function handleCategory(category: string) {
         setSelectedCategory(category);
-
         router.push("/recipes?page=1");
     }
 
-    // Reset
     function handleReset() {
         setSelectedCategory("");
         setSearchInput("");
-
         router.push("/recipes?page=1");
     }
 
-    // Loading
     if (loading) {
         return (
             <main className="min-h-screen bg-background">
                 <div className="container mx-auto flex min-h-[70vh] items-center justify-center px-4">
                     <div className="flex flex-col items-center gap-4">
                         <div className="h-10 w-10 animate-spin rounded-full border-4 border-border border-t-[#7C3AED] dark:border-t-[#A78BFA]" />
-
                         <p className="text-sm font-medium text-muted-foreground">
                             Loading recipes...
                         </p>
@@ -167,8 +152,6 @@ export default function RecipesPage() {
     return (
         <main className="min-h-screen bg-background">
             <div className="container mx-auto px-4 py-12 md:px-6 lg:px-8">
-
-                {/* Header */}
                 <section className="mb-10">
                     <h1 className="text-4xl font-black tracking-tight text-foreground md:text-5xl">
                         Recipes
@@ -180,7 +163,6 @@ export default function RecipesPage() {
                     </p>
                 </section>
 
-                {/* Search */}
                 <form
                     onSubmit={handleSearch}
                     className="mb-8 flex w-full max-w-2xl items-center"
@@ -205,10 +187,8 @@ export default function RecipesPage() {
                     </button>
                 </form>
 
-                {/* Category Pills */}
                 <section className="mb-10 border-b border-border pb-8">
                     <div className="flex gap-2 overflow-x-auto pb-2">
-
                         <button
                             type="button"
                             onClick={() => handleCategory("")}
@@ -236,7 +216,6 @@ export default function RecipesPage() {
                     </div>
                 </section>
 
-                {/* Results Header */}
                 <section className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                     <div>
                         <p className="text-sm font-semibold text-foreground">
@@ -257,7 +236,6 @@ export default function RecipesPage() {
                     </div>
 
                     <div className="flex items-center gap-2">
-
                         <button
                             type="button"
                             onClick={() => setShowFilters(!showFilters)}
@@ -277,20 +255,16 @@ export default function RecipesPage() {
                                 Reset
                             </button>
                         )}
-
                     </div>
                 </section>
 
-                {/* Filter Panel */}
                 {showFilters && (
                     <section className="mb-8 border border-border bg-secondary p-6">
-
                         <h2 className="mb-4 text-sm font-bold uppercase tracking-wider text-foreground">
                             Categories
                         </h2>
 
                         <div className="flex flex-wrap gap-2">
-
                             <button
                                 type="button"
                                 onClick={() => handleCategory("")}
@@ -315,28 +289,22 @@ export default function RecipesPage() {
                                     {category}
                                 </button>
                             ))}
-
                         </div>
                     </section>
                 )}
 
-                {/* Recipe Grid */}
                 {recipes.length > 0 ? (
                     <section className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-
                         {recipes.map((recipe) => (
                             <RecipeCard
                                 key={recipe.id}
                                 recipe={recipe}
                             />
                         ))}
-
                     </section>
                 ) : (
                     <section className="flex min-h-[300px] items-center justify-center border border-dashed border-border">
-
                         <div className="text-center">
-
                             <h2 className="text-lg font-bold text-foreground">
                                 No recipes found
                             </h2>
@@ -352,16 +320,34 @@ export default function RecipesPage() {
                             >
                                 Reset Filters
                             </button>
-
                         </div>
-
                     </section>
                 )}
 
-                {/* Pagination */}
                 <RecipePagination totalPages={totalPages} />
-
             </div>
         </main>
+    );
+}
+
+export default function RecipesPage() {
+    return (
+        <Suspense
+            fallback={
+                <main className="min-h-screen bg-background">
+                    <div className="container mx-auto flex min-h-[70vh] items-center justify-center px-4">
+                        <div className="flex flex-col items-center gap-4">
+                            <div className="h-10 w-10 animate-spin rounded-full border-4 border-border border-t-[#7C3AED] dark:border-t-[#A78BFA]" />
+
+                            <p className="text-sm font-medium text-muted-foreground">
+                                Loading recipes...
+                            </p>
+                        </div>
+                    </div>
+                </main>
+            }
+        >
+            <RecipesContent />
+        </Suspense>
     );
 }
