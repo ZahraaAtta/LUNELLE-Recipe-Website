@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -6,25 +5,23 @@ import { Mail } from "lucide-react";
 
 export default function Footer() {
     return (
-        <footer className="bg-secondary border-t">
+        <footer className="border-t bg-secondary">
             <div className="container mx-auto px-4 py-12 md:px-6 lg:px-8">
-
-                {/* Top Section: Grid Layout */}
+                {/* Top Section */}
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-
                     {/* Brand & About */}
                     <div className="space-y-4">
                         <Link
-                        href="/"
-                        className="
-                            font-serif text-2xl font-semibold
-                            tracking-[0.18em]
-                            text-[#7C3AED]
-                            dark:text-[#A78BFA]
-                        "
-                    >
-                        LUNELLE
-                    </Link>
+                            href="/"
+                            className="
+                font-serif text-2xl font-semibold
+                tracking-[0.18em]
+                text-[#7C3AED]
+                dark:text-[#A78BFA]
+              "
+                        >
+                            LUNELLE
+                        </Link>
 
                         <p className="text-sm leading-relaxed text-muted-foreground">
                             Discover delicious recipes, explore new flavors, and find
@@ -32,11 +29,9 @@ export default function Footer() {
                         </p>
                     </div>
 
-                    {/* Quick Links */}
+                    {/* Explore */}
                     <div className="space-y-4">
-                        <h3 className="text-sm font-medium text-foreground">
-                            Explore
-                        </h3>
+                        <h3 className="text-sm font-medium text-foreground">Explore</h3>
 
                         <ul className="space-y-2 text-sm text-muted-foreground">
                             <li>
@@ -68,46 +63,26 @@ export default function Footer() {
                         </ul>
                     </div>
 
-                    {/* Customer Support */}
+                    {/* Support */}
                     <div className="space-y-4">
-                        <h3 className="text-sm font-medium text-foreground">
-                            Support
-                        </h3>
+                        <h3 className="text-sm font-medium text-foreground">Support</h3>
 
                         <ul className="space-y-2 text-sm text-muted-foreground">
                             <li>
                                 <Link
-                                    href="/contact"
+                                    href="/recipes"
                                     className="transition-colors hover:text-foreground"
                                 >
-                                    Contact Us
+                                    Browse Recipes
                                 </Link>
                             </li>
 
                             <li>
                                 <Link
-                                    href="/faq"
+                                    href="/favorites"
                                     className="transition-colors hover:text-foreground"
                                 >
-                                    FAQs
-                                </Link>
-                            </li>
-
-                            <li>
-                                <Link
-                                    href="/privacy"
-                                    className="transition-colors hover:text-foreground"
-                                >
-                                    Privacy Policy
-                                </Link>
-                            </li>
-
-                            <li>
-                                <Link
-                                    href="/terms"
-                                    className="transition-colors hover:text-foreground"
-                                >
-                                    Terms & Conditions
+                                    My Favorites
                                 </Link>
                             </li>
                         </ul>
@@ -120,8 +95,8 @@ export default function Footer() {
                         </h3>
 
                         <p className="text-sm text-muted-foreground">
-                            Subscribe to our newsletter for new recipes, cooking
-                            inspiration, and updates.
+                            Subscribe to our newsletter for new recipes, cooking inspiration,
+                            and updates.
                         </p>
 
                         <form
@@ -134,13 +109,32 @@ export default function Footer() {
                                 <input
                                     type="email"
                                     placeholder="Enter your email"
-                                    className="h-10 w-full rounded-md border border-border bg-background pl-9 pr-3 text-sm text-foreground outline-none placeholder:text-muted-foreground focus:border-[#7C3AED] dark:focus:border-[#A78BFA]"
+                                    className="
+                    h-10 w-full rounded-md
+                    border border-border
+                    bg-background
+                    pl-9 pr-3
+                    text-sm text-foreground
+                    outline-none
+                    placeholder:text-muted-foreground
+                    focus:border-[#7C3AED]
+                    dark:focus:border-[#A78BFA]
+                  "
                                 />
                             </div>
 
                             <button
                                 type="submit"
-                                className="h-10 w-full rounded-md bg-[#7C3AED] text-sm font-medium text-white transition-colors hover:bg-[#6D28D9] dark:bg-[#A78BFA] dark:text-black dark:hover:bg-[#C4B5FD]"
+                                className="
+                  h-10 w-full rounded-md
+                  bg-[#7C3AED]
+                  text-sm font-medium text-white
+                  transition-colors
+                  hover:bg-[#6D28D9]
+                  dark:bg-[#A78BFA]
+                  dark:text-black
+                  dark:hover:bg-[#C4B5FD]
+                "
                             >
                                 Subscribe
                             </button>
@@ -151,20 +145,26 @@ export default function Footer() {
                 {/* Separator */}
                 <div className="my-8 h-px bg-border" />
 
-                {/* Bottom Section: Copyright & Socials */}
+                {/* Bottom Section */}
                 <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-
                     <p className="text-xs text-muted-foreground">
                         © {new Date().getFullYear()} LUNELLE. All rights reserved.
                     </p>
 
                     {/* Socials */}
                     <div className="flex items-center gap-4">
-
                         <button
                             type="button"
                             aria-label="Facebook"
-                            className="flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-[#7C3AED] dark:hover:text-[#A78BFA]"
+                            className="
+                flex h-9 w-9 items-center justify-center
+                rounded-md
+                text-muted-foreground
+                transition-colors
+                hover:bg-accent
+                hover:text-[#7C3AED]
+                dark:hover:text-[#A78BFA]
+              "
                         >
                             <span className="font-bold">f</span>
                         </button>
@@ -172,7 +172,15 @@ export default function Footer() {
                         <button
                             type="button"
                             aria-label="Twitter"
-                            className="flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-[#7C3AED] dark:hover:text-[#A78BFA]"
+                            className="
+                flex h-9 w-9 items-center justify-center
+                rounded-md
+                text-muted-foreground
+                transition-colors
+                hover:bg-accent
+                hover:text-[#7C3AED]
+                dark:hover:text-[#A78BFA]
+              "
                         >
                             <span className="font-bold">𝕏</span>
                         </button>
@@ -180,7 +188,15 @@ export default function Footer() {
                         <button
                             type="button"
                             aria-label="Instagram"
-                            className="flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-[#7C3AED] dark:hover:text-[#A78BFA]"
+                            className="
+                flex h-9 w-9 items-center justify-center
+                rounded-md
+                text-muted-foreground
+                transition-colors
+                hover:bg-accent
+                hover:text-[#7C3AED]
+                dark:hover:text-[#A78BFA]
+              "
                         >
                             <span className="font-bold">◎</span>
                         </button>
@@ -188,11 +204,18 @@ export default function Footer() {
                         <button
                             type="button"
                             aria-label="YouTube"
-                            className="flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-[#7C3AED] dark:hover:text-[#A78BFA]"
+                            className="
+                flex h-9 w-9 items-center justify-center
+                rounded-md
+                text-muted-foreground
+                transition-colors
+                hover:bg-accent
+                hover:text-[#7C3AED]
+                dark:hover:text-[#A78BFA]
+              "
                         >
                             <span className="font-bold">▶</span>
                         </button>
-
                     </div>
                 </div>
             </div>
